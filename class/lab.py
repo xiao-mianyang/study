@@ -23,7 +23,8 @@ class Cat(Animal):
         print(self.get_name()+'is making sound miu miu miu...')
 
 
-dog=Dog('Wangcai')
-cat=Cat('Kitty')
-dog.make_sound()
-cat.make_sound()
+animals = [Dog('wangcai'),Dog('laifu'),Cat('Kitty'),Cat('kit')]
+for animal in animals:
+    animal.make_sound()
+
+
