@@ -1,29 +1,41 @@
-#!/usr/bin/env python3
-# --*--coding:utf-8--*--
+#!/usr/bin/env pythn3
 import sys
 
-try:
-    salary = int(sys.argv[1])
-except:
-    print('must be int!')
-    
-Taxalbe_income = salary - 5000
-      
-if Taxalbe_income<=3000:
-    Final_salary = Taxalbe_income*0.03 
-elif 3000<Taxalbe_income<=12000:
-    Final_salary = Taxalbe_income*0.1 -210
-elif 12000<Taxalbe_income<=25000:
-    Final_salary = Taxalbe_income*0.2 -1410
-elif 25000<Taxalbe_income<=35000:
-    Final_salary = Taxalbe_income*0.25 -2660
-elif 35000<Taxalbe_income<=55000:
-    Final_salary = Taxalbe_income*0.30 -4410
-elif 55000<Taxalbe_income<=80000:
-    Final_salary = Taxalbe_income*0.35 -7160
-elif 80000<Taxalbe_income:
-    Final_salary = Taxalbe_income*0.45 -15160
 
-print(format(Final_salary,".2f"))
+def count_salary(salary):
+    Taxalbe_income = salary-salary*0.165-5000
+    if Taxalbe_income<0:
+    	tax =0
+    elif Taxalbe_income<=3000:
+    	tax =Taxalbe_income*0.03
+    elif 3000<Taxalbe_income<=12000:
+    	tax =Taxalbe_income*0.1-210
+    elif 12000<Taxalbe_income<=25000:
+    	tax =Taxalbe_income*0.2-1410
+    elif 25000<Taxalbe_income<35000:
+    	tax =Taxalbe_income*0.25-2660
+    elif 35000<Taxalbe_income<=55000:
+    	tax =Taxalbe_income*0.3-4410
+    elif 55000<Taxalbe_income<=80000:
+    	tax =Taxalbe_income*0.35-7160
+    else:
+    	80000<Taxalbe_income
+    	tax =Taxalbe_income*0.45-15160
+    global finall_salary
+    finall_salary = salary -salary*0.165-tax
+    
+
+def print_finall_salary(num_id, salary):
+	print('{}:{:.2f}'.format(num_id, salary))
+
+
+if __name__ == "__main__":
+    for arg in sys.argv[1:]:
+        salary_list = arg.split(':')
+        count_salary(int(salary_list[1]))
+        try:
+        	print_finall_salary(salary_list[0],finall_salary)
+        except (ValueError, TypeError):
+            print('Parameter Error')
 
 
