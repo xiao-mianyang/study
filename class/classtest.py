@@ -29,7 +29,8 @@ class NewUser(UserData):
     def format_userdata(user_id,user_name):
         print('{}\'s id is {}'.format(user_name, user_id))
     
-
+    def __call__(self):
+        print('{}\'s id is {}'.format(self._name, self.ID))
 
         
 if __name__ == '__main__':
@@ -44,13 +45,14 @@ if __name__ == '__main__':
     #print(user2)
     #print(NewUser.get_group())
     #NewUser.format_userdata(109,'Lucy')
-    user1 = NewUser(101, 'Jack')
-    user1.name = 'Lou'
-    user1.name = 'Jackie'
-    user2 = NewUser(102,'Louplus')
-    print(user1.name)
-    print(user2.name)
-
+    #user1 = NewUser(101, 'Jack')
+    #user1.name = 'Lou'
+    #user1.name = 'Jackie'
+    #user2 = NewUser(102,'Louplus')
+    #print(user1.name)
+    #print(user2.name)
+    user = NewUser(101,'Jack')
+    user()
 
 
 
