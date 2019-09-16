@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 class Animal(object):
+    owner = 'jack'
+
     def __init__(self, name):
         self._name = name
     
@@ -13,6 +15,19 @@ class Animal(object):
     def make_sound(self):
         pass
 
+    @classmethod
+    def get_owner(cls):
+        return cls.owner
+    
+    @classmethod
+    def set_owner(cls,name):
+        cls.owner = name
+
+
+    @staticmethod
+    def order_animal_food():
+        print('ording...')
+        print('ok')
 
 class Dog(Animal):
     def make_sound(self):
@@ -23,8 +38,10 @@ class Cat(Animal):
         print(self.get_name()+'is making sound miu miu miu...')
 
 
-animals = [Dog('wangcai'),Dog('laifu'),Cat('Kitty'),Cat('kit')]
-for animal in animals:
-    animal.make_sound()
+if __name__ == '__main__':
+    Animal.order_animal_food()
+    
+
+
 
 
