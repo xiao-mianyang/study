@@ -69,31 +69,36 @@ class Config(object):
                 key,value = line.strip().split('=')
                 try:
                     config[key.strip()] = float(value.strip())
+
+                #print(config[key.strip()])
+                #print(value.strip())
                 except ValueError:
                     print('Parameter Error')
                     exit()
-
+        
         return config
+        
 
-
-    def _get_config(self,key):
+    def _get_config(self,key_word):
 
         try:
-            return self.config[key]
+        #print(self.config)
+        #print(self.config['JiShuH'])
+            return self.config[key_word]
         except KeyError:
             print('Config Error')
             exit()
-
+        
 
     @property
     def social_insurance_baseline_low(self):
-
+        #print(self._get_config('JiShuL'))
         return self._get_config('JiShuL')
 
     @property
     def social_insurance_baseline_high(self):
         
-        return self._get_config('JishuH')
+        return self._get_config('JiShuH')
 
     @property
     def social_insurance_total_rate(self):
@@ -119,7 +124,7 @@ class UserData(object):
 
         userlist = []
 
-        with open(arg.userdata_path) as f:
+        with open(args.userdata_path) as f:
             for line in f.readlines():
                 employee_id ,income_string = line.strip().split(',')
                 try:
@@ -146,7 +151,8 @@ class IncomeTaxCalculator(object):
 
     @classmethod
     def calc_social_insurance_money(cls, income):
-
+        #print(income)
+        #print(config.social_insurance_baseline_low)
         if income<config.social_insurance_baseline_low:
             return config.social_insurance_baseline_low*\
                     config.social_insurance_total_rate
