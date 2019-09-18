@@ -1,4 +1,3 @@
-# study
-Second week
+# Second week
 
 
