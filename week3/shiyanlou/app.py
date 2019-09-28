@@ -1,9 +1,10 @@
-from flask import Flask,render_template
-from flask import url_for
-from flask import redirect
-from flask import request
+from flask import Flask,render_template,url_for,redirect,request,session
+from datetime import timedelta
 
 app = Flask(__name__)
+
+app.config.update({
+    'SECRET_KEY': 'HAHA'})
 
 
 @app.route('/<username>')
@@ -38,6 +39,16 @@ def show_post(post_id):
     return 'Post {}'.format(post_id)
 
 
+@app.route('/register',methods=['GET','POST'])
+def register():
+    print('method:',request.method)
+    print('name:',request.form.get('name'))
+    print('password:',request.form.get('password'))
+    print('hobbies:',request.form.getlist('hobbies'))
+    print('age:',request.form.get('age',default=18))
+    return 'registered successfully!'
+
+
 @app.route('/test')
 def test():
     print(url_for('index'))
@@ -48,12 +59,25 @@ def test():
     print(url_for('show_post',post_id=2,_anchor='a'))
     return 'test'
 
+@app.route('/set_session')
+def set_session():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=35)
+    session['username']='shixiaolou'
+    return 'Session Ready!'
+
+@app.route('/get_session')
+def get_session():
+    value = session['username']
+    return 'Get Session!{}'.format(value)
 
 
+@app.route('/del_session')
+def del_session():
+    print('--------------', session)
+    value = session.pop('username')
+    return 'Del Session!'.format(value)
 
 
 if __name__ =='__main__':
     app.run()
-
-
-
