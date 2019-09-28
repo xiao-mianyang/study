@@ -1,6 +1,4 @@
-from flask import Flask,render_template
-from flask import url_for
-from flask import redirect
+from flask import Flask, render_template, url_for, redirect, request
 
 app = Flask(__name__)
 
@@ -25,13 +23,20 @@ def user_index(username):
 
 @app.route('/courses/<coursesname>')
 def courses(coursesname):
-    #return render_template('courses.html,coursesname=coursesname')
     return render_template('courses.html', coursesname=coursesname)
 
 
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
     return 'Post {}'.format(post_id)
+
+
+@app.route('/httptest',methods=['GET','POST'])
+def get_post():
+    if request.method == 'GET':
+        return 'It is a get request!'
+    elif request.method == 'POST':
+        return 'It is a post request!'
 
 
 @app.route('/test')
