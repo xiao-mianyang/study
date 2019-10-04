@@ -1,3 +1,3 @@
-# study
+# Study
 haha
 
