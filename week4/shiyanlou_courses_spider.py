@@ -5,14 +5,14 @@ class ShiyanlouCoursesSpider(scrapy.Spider):
 
     name = 'shiyanlou-courses'
 
-    def start_requests(self):
+    @property
+    def start_urls(self):
         url_list = ['https://www.shiyanlou.com/courses/',
                     'https://www.shiyanlou.com/courses/?page=2',
                     'https://www.shiyanlou.com/courses/?page=3'
                 ]        
 
-        for url in url_list:
-            yield scrapy.Request(url=url, callback=self.parse)
+        return url_list
 
 
 
