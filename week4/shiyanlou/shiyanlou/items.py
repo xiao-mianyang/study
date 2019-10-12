@@ -16,4 +16,11 @@ class CourseItem(scrapy.Item):
     type = scrapy.Field()
     students = scrapy.Field()
 
-
+class UserItem(scrapy.Item):
+    name = scrapy.Field()
+    is_vip = scrapy.Field()
+    status = scrapy.Field()
+    school_job = scrapy.Field()
+    level = scrapy.Field()
+    join_date = scrapy.Field()
+    learn_courses_num = scrapy.Field()
