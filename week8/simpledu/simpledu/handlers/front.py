@@ -6,14 +6,21 @@ from flask import redirect, url_for
 from flask_login import login_user
 from simpledu.models import User
 from flask_login import login_user, logout_user, login_required
+from flask import request, current_app
 
 
 front = Blueprint('front', __name__)
 
 @front.route('/')
 def index():
-    courses = Course.query.all()
-    return render_template('index.html', courses=courses)
+    page = request.args.get('page', default=1, type=int)  
+    pagination = Course.query.paginate(
+        page = page,
+        per_page=current_app.config['INDEX_PER_PAGE'],
+        error_out = False
+    )
+    # courses = Course.query.all()
+    return render_template('index.html', pagination=pagination)
 
 @front.route('/login', methods=['GET','POST'])
 def login():
