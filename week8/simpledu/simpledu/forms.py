@@ -3,6 +3,9 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import Length, Email, EqualTo, DataRequired
 from simpledu.models import db, User
 from wtforms import ValidationError
+from wtforms import TextAreaField, IntergerField
+from simpledu.models import Course
+from wtforms.validators import URL, NumberRange
 
 
 class RegisterForm(FlaskForm):
@@ -49,5 +52,31 @@ class LoginForm(FlaskForm):
             raise ValidationError('密码错误')
 
 
+class CourseForm(FlaskForm):
+    name = String('', validators=[DataRequired(), Length(5, 32)])
+    description = TextAreaField('', validators=[DataReaquired(), Length(20, 256)])
+    image_url = StringField('', validators=[DataRequired(), URL()])
+    author_id = IntergerField('', validators=[DataRequired(), NumberRange(min=1, message='')])
+    submit = SubmitField('')
+
+
+    def validate_author_id(self, field):
+        if not User.query.get(field.data):
+            raise ValidationError('')
+
+
+    def create_course(self):
+        course = Course()
+        self.populate_obj(course)
+        db.session.add(course)
+        db.session.commit()
+        return course
+
+
+    def update_course(self, course):
+        self.populate_obj(course)
+        db.session.add(course)
+        db.session.commit()
+        return course
 
 
